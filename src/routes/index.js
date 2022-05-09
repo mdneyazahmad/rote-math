@@ -1,5 +1,13 @@
+import Box from '@mui/material/Box';
+
+import Banner from "../components/Banner";
+
 function Home() {
-    return <h1>Home page</h1>
+    return (
+        <Box>
+            <Banner />
+        </Box>
+    );
 }
 
 export default Home;

@@ -12,7 +12,7 @@ function App() {
     <Fragment>
       <CssBaseline />
         <Header />
-        <Container>
+        <Container maxWidth="md">
           <Box sx={{ my: 2 }}>
             <Outlet />
           </Box>
