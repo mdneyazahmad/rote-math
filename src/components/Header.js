@@ -10,7 +10,7 @@ function Header() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
-          <Container maxWidth="lg" style={{paddingLeft: 0, paddingRight: 0}}>
+          <Container maxWidth="md" style={{paddingLeft: 0, paddingRight: 0}}>
             <Toolbar>
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                     Rote Math
