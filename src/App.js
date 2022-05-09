@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 
 import Header from './components/Header';
+import Footer from './components/Footer';
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
             <Outlet />
           </Box>
         </Container>
+        <Footer />
     </Fragment>
   );
 }
