@@ -1,0 +1,27 @@
+import * as React from 'react';
+import AppBar from '@mui/material/AppBar';
+import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+
+function Header() {
+  return (
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static">
+          <Container maxWidth="lg" style={{paddingLeft: 0, paddingRight: 0}}>
+            <Toolbar>
+                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                    Rote Math
+                </Typography>
+                <Button color="inherit">Home</Button>
+                <Button color="inherit">Play</Button>
+                </Toolbar>
+            </Container>
+      </AppBar>
+    </Box>
+  );
+}
+
+export default Header;
