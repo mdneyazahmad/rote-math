@@ -1,5 +1,7 @@
+import GamePickerForm from "../components/GamePickerForm";
+
 function Play() {
-    return <h1>Play page</h1>
+    return <GamePickerForm />;
 }
 
 export default Play;
