@@ -9,11 +9,25 @@ import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 
-function GamePickerForm() {
-    const [problemType, setProblemType] = React.useState('addition');
-    const [level, setLevel] = React.useState('addition');
-    const [gameMode, setGameMode] = React.useState('competition');
-    const [practiceNumber, setPracticeNumber] = React.useState('0');
+import {GameMode} from '../game/Game';
+import {ProblemType} from '../game/Problem';
+
+function GamePickerForm(props) {
+    const [problemType, setProblemType] = React.useState(ProblemType.Addition);
+    const [level, setLevel] = React.useState(3);
+    const [gameMode, setGameMode] = React.useState(GameMode.Competitive);
+    const [practiceNumber, setPracticeNumber] = React.useState(3);
+
+    const startGame = () => {
+        const gameOptions = {
+            gameMode,
+            problemType,
+            max: level,
+            practiceDigit: practiceNumber,
+        }
+
+        props.startGame(gameOptions);
+    }
 
     return (
         <Card sx={{my: 4}}>
@@ -27,8 +41,8 @@ function GamePickerForm() {
                         onChange={e => setProblemType(e.target.value)}
                         label="Proplem Type"
                     >
-                        <MenuItem value="addition">Addition</MenuItem>
-                        <MenuItem value="multiplication">Multiplication</MenuItem>
+                        <MenuItem value={ProblemType.Addition}>Addition</MenuItem>
+                        <MenuItem value={ProblemType.Multiplication}>Multiplication</MenuItem>
                     </Select>
                 </FormControl>
                 <FormControl variant="standard" fullWidth sx={{my: 1}}>
@@ -36,11 +50,13 @@ function GamePickerForm() {
                     <Select
                         labelId="level"
                         value={level}
-                        onChange={e => setLevel(e.target.value)}
+                        onChange={e => setLevel(parseInt(e.target.value))}
                         label="Choose your level"
                     >
-                        <MenuItem value="addition">Addition</MenuItem>
-                        <MenuItem value="multiplication">Multiplication</MenuItem>
+                        <MenuItem value="3">White Belt (up to 3)</MenuItem>
+                        <MenuItem value="6">Yellow Belt (up to 6)</MenuItem>
+                        <MenuItem value="9">Brown Belt (up to 9)</MenuItem>
+                        <MenuItem value="12">Black Belt! (up to 12)</MenuItem>
                     </Select>
                 </FormControl>
                 <FormControl variant="standard" fullWidth sx={{my: 1}}>
@@ -51,18 +67,18 @@ function GamePickerForm() {
                         onChange={e => setGameMode(e.target.value)}
                         label="Game mode"
                     >
-                        <MenuItem value="competition">Competition</MenuItem>
-                        <MenuItem value="practice">Practice</MenuItem>
+                        <MenuItem value={GameMode.Competitive}>Competition</MenuItem>
+                        <MenuItem value={GameMode.Practice}>Practice</MenuItem>
                     </Select>
                 </FormControl>
                 
-                {gameMode === "practice" && (
+                {gameMode === GameMode.Practice && (
                     <FormControl variant="standard" fullWidth sx={{my: 1}}>
                         <InputLabel id="practiceNumber">Practice Number</InputLabel>
                         <Select
                             labelId="practiceNumber"
                             value={practiceNumber}
-                            onChange={e => setPracticeNumber(e.target.value)}
+                            onChange={e => setPracticeNumber(parseInt(e.target.value))}
                             label="Practice Number"
                         >
                             {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(number => (
@@ -74,7 +90,7 @@ function GamePickerForm() {
                 )}
             </CardContent>
             <CardActions>
-                <Button variant="contained">Start</Button>
+                <Button variant="contained" onClick={startGame}>Start</Button>
             </CardActions>
         </Card>
     );
