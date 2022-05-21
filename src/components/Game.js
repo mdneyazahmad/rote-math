@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import {Game as GameEngine} from '../game/Game';
 import {Event, Events} from '../game/Event';
 import ProgressIndicator from './ProgressIndicator';
+import ResultModal from './ResultModal';
 
 function Game(props) {
     const gameArgs = {
@@ -18,6 +19,7 @@ function Game(props) {
     const game = React.useRef(new GameEngine(gameArgs)).current;
     const [problem, setProblem] = React.useState("");
     const [score, setScore] = React.useState(0);
+    const [isGameOver, setIsGameOver] = React.useState(false);
 
     const onProblemLoaded = () => {
         setProblem(game.currentProblem.questionMasked);
@@ -32,7 +34,7 @@ function Game(props) {
     }
 
     const onGameOver = () => {
-        alert('Game over');
+        setIsGameOver(true);
     }
 
     React.useEffect(() => {
@@ -66,6 +68,12 @@ function Game(props) {
                     <Button key={index} variant="contained" onClick={() => game.trySolution(solution)}>{solution}</Button>
                 ))}
             </Stack>
+            <ResultModal
+                handleClose={() => setIsGameOver(false)}
+                isOpen={isGameOver}
+                maxScore={game.maxScore}
+                score={game.score}
+            />
         </Box>
     );
 }
