@@ -12,7 +12,7 @@ function AnswersGraph(props) {
     let minright = props.answers.reduce((acc, x) => Math.min(x.problem.right, acc), Number.MAX_SAFE_INTEGER);
     let maxright = props.answers.reduce((acc, x) => Math.max(x.problem.right, acc), Number.MIN_SAFE_INTEGER);
 
-    const isAnswerCorrect = (left, right) => props.answers.filter(a => a.problem.left === left && a.problem.right === right)[0];
+    const isAnswerCorrect = (left, right) => props.answers.filter(a => a.problem.left === left && a.problem.right === right)[0].success;
 
     return (
         <Table size="small" sx={{width: 'initial'}}>
