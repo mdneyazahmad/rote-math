@@ -23,6 +23,15 @@ export function range2(size1, size2 = undefined) {
     return result;
 }
 
+export function range3(start, end) {
+    const list = [];
+    for (var i = start; i <= end; i++) {
+        list.push(i);
+    }
+
+    return list;
+}
+
 export function shuffleInPlace(array) {
     // do the Fisher-Yates shuffle!
     // https://stackoverflow.com/a/2450976/41457
