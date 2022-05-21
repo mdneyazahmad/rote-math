@@ -1,23 +1,23 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import Button from '@mui/material/Button';
-import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
-import Typography from '@mui/material/Typography';
+import * as React from "react";
+import PropTypes from "prop-types";
+import Button from "@mui/material/Button";
+import { styled } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+import Typography from "@mui/material/Typography";
 
-import AnswersGraph from './AnswersGraph';
+import AnswersGraph from "./AnswersGraph";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-  '& .MuiDialogContent-root': {
+  "& .MuiDialogContent-root": {
     padding: theme.spacing(2),
   },
-  '& .MuiDialogActions-root': {
+  "& .MuiDialogActions-root": {
     padding: theme.spacing(1),
   },
 }));
@@ -33,7 +33,7 @@ const BootstrapDialogTitle = (props) => {
           aria-label="close"
           onClick={onClose}
           sx={{
-            position: 'absolute',
+            position: "absolute",
             right: 8,
             top: 8,
             color: (theme) => theme.palette.grey[500],
@@ -52,7 +52,6 @@ BootstrapDialogTitle.propTypes = {
 };
 
 function ResultModal(props) {
-
   return (
     <BootstrapDialog
       fullWidth
@@ -61,13 +60,20 @@ function ResultModal(props) {
       open={props.isOpen}
     >
       <BootstrapDialogTitle id="modal-title" onClose={props.handleClose}>
-          All Done!
+        All Done!
       </BootstrapDialogTitle>
       <DialogContent dividers>
         <Typography gutterBottom>
           {`Game Over. You scored ${props.score} out of ${props.maxScore}. Keep on practicing!`}
         </Typography>
-        <Box sx={{display: 'flex', justifyContent: 'center', marginTop: 2, marginBottom: 2}}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            marginTop: 2,
+            marginBottom: 2,
+          }}
+        >
           <AnswersGraph answers={props.answers} />
         </Box>
       </DialogContent>
