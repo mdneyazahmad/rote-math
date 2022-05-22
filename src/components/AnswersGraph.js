@@ -2,6 +2,7 @@ import * as React from "react";
 import Table from "@mui/material/Table";
 import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
+import TableBody from "@mui/material/TableBody";
 import TableRow from "@mui/material/TableRow";
 
 import { range3 } from "../utils";
@@ -41,18 +42,20 @@ function AnswersGraph(props) {
           ))}
         </TableRow>
       </TableHead>
-      {range3(minleft, maxleft).map((left, index) => (
-        <TableRow sx={{ border: 0 }} key={index}>
-          <TableCell component="th" scope="row">
-            {left}
-          </TableCell>
-          {range3(minright, maxright).map((right, index) => (
-            <TableCell key={index}>
-              {isAnswerCorrect(left, right) ? "✅" : "❌"}
+      <TableBody>
+        {range3(minleft, maxleft).map((left, index) => (
+          <TableRow sx={{ border: 0 }} key={index}>
+            <TableCell component="th" scope="row">
+              {left}
             </TableCell>
-          ))}
-        </TableRow>
-      ))}
+            {range3(minright, maxright).map((right, index) => (
+              <TableCell key={index}>
+                {isAnswerCorrect(left, right) ? "✅" : "❌"}
+              </TableCell>
+            ))}
+          </TableRow>
+        ))}
+      </TableBody>
     </Table>
   );
 }
