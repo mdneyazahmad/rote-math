@@ -104,7 +104,7 @@ function Game(props) {
       </Stack>
       <ResultModal
         answers={game.answers}
-        handleClose={() => setIsGameOver(false)}
+        handleClose={props.restartGame}
         isOpen={isGameOver}
         maxScore={game.maxScore}
         score={game.score}

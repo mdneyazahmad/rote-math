@@ -9,7 +9,7 @@ function Play() {
     return <GamePickerForm startGame={(options) => setGameOptions(options)} />;
   }
 
-  return <Game {...gameOptions} />;
+  return <Game {...gameOptions} restartGame={() => setGameOptions(null)} />;
 }
 
 export default Play;
