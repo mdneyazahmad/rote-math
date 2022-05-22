@@ -34,18 +34,22 @@ function AnswersGraph(props) {
       <TableHead>
         <TableRow sx={{ border: 0 }}>
           <TableCell component="th"></TableCell>
-          {range3(minright, maxright).map((right) => (
-            <TableCell component="th">{right}</TableCell>
+          {range3(minright, maxright).map((right, index) => (
+            <TableCell component="th" key={index}>
+              {right}
+            </TableCell>
           ))}
         </TableRow>
       </TableHead>
-      {range3(minleft, maxleft).map((left) => (
-        <TableRow sx={{ border: 0 }}>
+      {range3(minleft, maxleft).map((left, index) => (
+        <TableRow sx={{ border: 0 }} key={index}>
           <TableCell component="th" scope="row">
             {left}
           </TableCell>
-          {range3(minright, maxright).map((right) => (
-            <TableCell>{isAnswerCorrect(left, right) ? "✅" : "❌"}</TableCell>
+          {range3(minright, maxright).map((right, index) => (
+            <TableCell key={index}>
+              {isAnswerCorrect(left, right) ? "✅" : "❌"}
+            </TableCell>
           ))}
         </TableRow>
       ))}
