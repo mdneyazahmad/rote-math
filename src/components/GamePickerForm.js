@@ -4,19 +4,25 @@ import CardHeader from "@mui/material/CardHeader";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
+import FormGroup from "@mui/material/FormGroup";
 import FormControl from "@mui/material/FormControl";
+import FormControlLabel from "@mui/material/FormControlLabel";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
+import Switch from "@mui/material/Switch";
 import MenuItem from "@mui/material/MenuItem";
 
 import { GameMode } from "../game/Game";
 import { ProblemType } from "../game/Problem";
+import { RoteSpeech } from "../game/RoteSpeech";
 
 function GamePickerForm(props) {
   const [problemType, setProblemType] = React.useState(ProblemType.Addition);
   const [level, setLevel] = React.useState(3);
   const [gameMode, setGameMode] = React.useState(GameMode.Competitive);
   const [practiceNumber, setPracticeNumber] = React.useState(3);
+  const [isSpeechEnabled, setIsSpeechEnabled] = React.useState(false);
+  const [isMicEnabled, setIsMicEnabled] = React.useState(false);
 
   const startGame = () => {
     const gameOptions = {
@@ -24,6 +30,8 @@ function GamePickerForm(props) {
       problemType,
       max: level,
       practiceDigit: practiceNumber,
+      isSpeechEnabled,
+      isMicEnabled,
     };
 
     props.startGame(gameOptions);
@@ -91,6 +99,23 @@ function GamePickerForm(props) {
             </Select>
           </FormControl>
         )}
+
+        <FormGroup>
+          <FormControlLabel
+            disabled={!RoteSpeech.supportsSpeechSynthesis()}
+            control={<Switch />}
+            value={isSpeechEnabled}
+            onChange={(e) => setIsSpeechEnabled(e.target.checked)}
+            label="Read the problems out loud"
+          />
+          <FormControlLabel
+            disabled={!RoteSpeech.supportsSpeechRecognition()}
+            control={<Switch />}
+            value={isMicEnabled}
+            onChange={(e) => setIsMicEnabled(e.target.checked)}
+            label="Let me answer by speaking into the microphone"
+          />
+        </FormGroup>
       </CardContent>
       <CardActions>
         <Button variant="contained" onClick={startGame}>
