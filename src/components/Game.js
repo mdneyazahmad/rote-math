@@ -91,7 +91,7 @@ function Game(props) {
       <Typography variant="h5" component="h5" sx={{ textAlign: "right" }}>
         Score: {score}
       </Typography>
-      <Stack direction="row" spacing={1}>
+      <Stack direction={{ xs: "column", sm: "row" }} spacing={1}>
         {game.allPossibleSolutions.map((solution, index) => (
           <Button
             key={index}
