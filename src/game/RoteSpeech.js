@@ -32,9 +32,13 @@ export class RoteSpeech {
       let grammar = `#JSGF V1.0; grammar numbers; public <number> = ${numberWords};`;
       this.speechRecognition = new Recognition();
       this.speechRecognition.continuous = false;
-      var speechRecognitionList = new GrammarList();
-      speechRecognitionList.addFromString(grammar, 1);
-      this.speechRecognition.grammars = speechRecognitionList;
+
+      if (GrammarList) {
+        const speechRecognitionList = new GrammarList();
+        speechRecognitionList.addFromString(grammar, 1);
+        this.speechRecognition.grammars = speechRecognitionList;
+      }
+
       this.speechRecognition.maxAlternatives = 5;
     }
   }
