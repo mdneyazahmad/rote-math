@@ -10,37 +10,33 @@ export class RoteSpeech {
     this.synthesisEnabled = synthesisEnabled;
     this.recognitionEnabled = recognitionEnabled;
 
-    if (recognitionEnabled && !RoteSpeech.supportsSpeechRecognition) {
+    if (recognitionEnabled && !RoteSpeech.supportsSpeechRecognition()) {
       throw new Error(
         "Can't construct a speech recognition object when it's not supported."
       );
     }
 
-    if (synthesisEnabled && !RoteSpeech.supportsSpeechSynthesis) {
+    if (synthesisEnabled && !RoteSpeech.supportsSpeechSynthesis()) {
       throw new Error("Can't enable speech synthesis when it's not supported.");
     }
 
-    let Recognition;
-    let GrammarList;
+    if (RoteSpeech.supportsSpeechRecognition()) {
+      let Recognition =
+        window.webkitSpeechRecognition || window.SpeechRecognition;
+      let GrammarList =
+        window.webkitSpeechGrammarList || window.SpeechGrammarList;
 
-    if (typeof window.SpeechRecognition === "undefined") {
-      Recognition = window.webkitSpeechRecognition;
-      GrammarList = window.webkitSpeechGrammarList;
-    } else {
-      Recognition = window.SpeechRecognition;
-      GrammarList = window.SpeechGrammarList;
+      let numberWords = range(145)
+        .map((n) => "" + n)
+        .join(" | ");
+      let grammar = `#JSGF V1.0; grammar numbers; public <number> = ${numberWords};`;
+      this.speechRecognition = new Recognition();
+      this.speechRecognition.continuous = false;
+      var speechRecognitionList = new GrammarList();
+      speechRecognitionList.addFromString(grammar, 1);
+      this.speechRecognition.grammars = speechRecognitionList;
+      this.speechRecognition.maxAlternatives = 5;
     }
-
-    let numberWords = range(145)
-      .map((n) => "" + n)
-      .join(" | ");
-    let grammar = `#JSGF V1.0; grammar numbers; public <number> = ${numberWords};`;
-    this.speechRecognition = new Recognition();
-    this.speechRecognition.continuous = false;
-    var speechRecognitionList = new GrammarList();
-    speechRecognitionList.addFromString(grammar, 1);
-    this.speechRecognition.grammars = speechRecognitionList;
-    this.speechRecognition.maxAlternatives = 5;
   }
 
   static getAnswerFromSpeechResults(resultList) {
@@ -77,7 +73,7 @@ export class RoteSpeech {
     }
 
     if (this.synthesisEnabled) {
-      let synth = speechSynthesis;
+      let synth = window.speechSynthesis;
       if (synth.speaking) {
         synth.cancel(); // stop current utterance. otherwise they queue up.
       }

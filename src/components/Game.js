@@ -65,7 +65,7 @@ function Game(props) {
     const unsubscribe3 = Event.on(Events.CorrectAnswer, onCorrectAnswer);
     const unsubscribe4 = Event.on(Events.GameOver, onGameOver);
 
-    if (speech.synthesisEnabled) {
+    if (speech.synthesisEnabled && speech.speechRecognition) {
       speech.speechRecognition.onresult = onNumberSpeechRecognized;
     }
 
